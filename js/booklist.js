@@ -10,14 +10,10 @@ class Book{
     this.title = title;
     this.author = author;
  }
-
-
-
-
  addBookToLibrary() {
   
-    if (this.bookTitle.value !== '' && this.bookAuthor.value !== '') {
-      Library.push(new Book(this.bookTitle.value, this.bookAuthor.value));
+    if (bookTitle.value !== '' && bookAuthor.value !== '') {
+      Library.push(new Book(bookTitle.value, bookAuthor.value));
     } else {
       bookList.appendChild();
     }
@@ -28,7 +24,7 @@ class Book{
     const row = document.createElement('div');
     const titleAuthor = document.createElement('li');
 
-    titleAuthor.innerHTML = `"${this.book.title}" by ${this.book.author}`
+    titleAuthor.innerHTML = `"${book.title}" by ${book.author}`
 
     const removeBtn = document.createElement('button');
 
@@ -48,11 +44,11 @@ class Book{
   }
   
 }
-
+let obj = new Book(bookTitle.value, bookAuthor.value)
 addBook.addEventListener("click", (e) => {
     e.preventDefault()
-    addBookToLibrary();
-    displayBooks(Library[Library.length - 1]);
+    obj.addBookToLibrary();
+    obj.displayBooks(Library[Library.length - 1]);
     localStorage.setItem('libraryLists', JSON.stringify(Library));
     bookTitle.value = '';
     bookAuthor.value = '';
@@ -69,7 +65,5 @@ bookList.addEventListener('click', (e) => {
       localStorage.setItem('libraryLists', JSON.stringify(Library));
     }
   });
-
-  // store data in the local storage
 
 
