@@ -10,7 +10,10 @@ class Book{
     this.title = title;
     this.author = author;
  }
- addBookToLibrary() {
+}
+class UI {
+
+ static addBookToLibrary() {
   
     if (bookTitle.value !== '' && bookAuthor.value !== '') {
       Library.push(new Book(bookTitle.value, bookAuthor.value));
@@ -20,7 +23,7 @@ class Book{
   }
 
 
- displayBooks(book) {
+ static displayBooks(book) {
     const row = document.createElement('div');
     const titleAuthor = document.createElement('li');
 
@@ -35,25 +38,19 @@ class Book{
     row.appendChild(titleAuthor);
     row.appendChild(removeBtn);
     bookList.appendChild(row);
-    if (localStorage.getItem('libraryLists')) {
-      JSON.parse(localStorage.getItem('libraryLists')).forEach((book) => {
-        displayBooks(book);
-        Library.push(book);
-      });
-    }
+    
   }
   
 }
-let obj = new Book(bookTitle.value, bookAuthor.value)
 addBook.addEventListener("click", (e) => {
     e.preventDefault()
-    obj.addBookToLibrary();
-    obj.displayBooks(Library[Library.length - 1]);
-    localStorage.setItem('libraryLists', JSON.stringify(Library));
-    bookTitle.value = '';
-    bookAuthor.value = '';
-    console.log('I work')
+    const book = new Book(bookTitle.value, bookAuthor.value);
+    const display = new Book(bookTitle.value, bookAuthor.value);
+    UI.addBookToLibrary(book);
+    UI.displayBooks(display)
+   
 });
+
 
 
 // add the remove method
@@ -66,4 +63,9 @@ bookList.addEventListener('click', (e) => {
     }
   });
 
-
+  if (localStorage.getItem('libraryLists')) {
+    JSON.parse(localStorage.getItem('libraryLists')).forEach((book) => {
+      UI.displayBooks(book);
+      Library.push(book);
+    });
+  }
